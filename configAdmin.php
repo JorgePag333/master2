@@ -15,7 +15,7 @@
     <section id="prove-product-cat-config">
         <div class="container">
             <div class="page-header">
-              <h1>Panel de administración <small class="tittles-pages-logo">Cat Electronics</small></h1>
+              <h1>Panel de administración <small class="tittles-pages-logo">El Porteño</small></h1>
             </div>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
@@ -489,6 +489,7 @@
                                               <th class="text-center">Fecha</th>
                                               <th class="text-center">Cliente</th>
                                               <th class="text-center">Producto</th>
+                                              <th class="text-center">Cantidad</th>
                                               <th class="text-center">Total</th>
                                               <th class="text-center">Estado</th>
                                               <th class="text-center">Opciones</th>
@@ -511,7 +512,20 @@
                                                                     echo $UsP['Nombre'];
                                                                 }
                                                     echo   '</td>
-                                                            <td>'.$peU['Descuento'].'%</td>
+                                                            <td>';
+                                                            $consultarpro= ejecutarSQL::consultar("select * from detalle where NumPedido='".$peU['NumPedido']."'");
+                                                            while($UsP=mysqli_fetch_array($conUs)){
+                                                                echo $UsP['CodigoProd'];
+                                                            }
+                                                            
+                                                     echo    '   </td>
+                                                     <td>';
+                                                            $consultarpro= ejecutarSQL::consultar("select * from detalle where NumPedido='".$peU['NumPedido']."'");
+                                                            while($UsP=mysqli_fetch_array($conUs)){
+                                                                echo $UsP['CantidadProductos'];
+                                                            }
+                                                            
+                                                     echo    '   </td>
                                                             <td>'.$peU['TotalPagar'].'</td>
                                                             <td>
                                                                 <select class="form-control" name="pedido-status">';
