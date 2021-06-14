@@ -2,6 +2,7 @@
     include './library/configServer.php';
     include './library/consulSQL.php';
     include './process/securityPanel.php';
+   
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -466,6 +467,7 @@
                                         <label>Pedidos</label>
                                         <select class="form-control" name="num-pedido">
                                             <?php 
+
                                                 $pedidoC=  ejecutarSQL::consultar("select * from venta");
                                                 while($pedidoD=mysqli_fetch_array($pedidoC)){
                                                     echo '<option value="'.$pedidoD['NumPedido'].'">Pedido #'.$pedidoD['NumPedido'].' - Estado('.$pedidoD['Estado'].') - Fecha('.$pedidoD['Fecha'].')</option>';
@@ -493,6 +495,7 @@
                                               <th class="text-center">Total</th>
                                               <th class="text-center">Estado</th>
                                               <th class="text-center">Opciones</th>
+                                              <th class="text-center"></th>
                                           </tr>
                                       </thead>
                                       <tbody>
@@ -514,16 +517,19 @@
                                                     echo   '</td>
                                                             <td>';
                                                             $consultarpro= ejecutarSQL::consultar("select * from detalle where NumPedido='".$peU['NumPedido']."'");
-                                                            while($UsP=mysqli_fetch_array($conUs)){
+                                                            while($UsP=mysqli_fetch_array( $consultarpro)){
                                                                 echo $UsP['CodigoProd'];
+                                                                echo '-'; 
                                                             }
                                                             
                                                      echo    '   </td>
                                                      <td>';
+                                                     $cant=0;
                                                             $consultarpro= ejecutarSQL::consultar("select * from detalle where NumPedido='".$peU['NumPedido']."'");
-                                                            while($UsP=mysqli_fetch_array($conUs)){
-                                                                echo $UsP['CantidadProductos'];
+                                                            while($UsP=mysqli_fetch_array( $consultarpro)){
+                                                                $cant += $UsP['CantidadProductos'];
                                                             }
+                                                            echo $cant; 
                                                             
                                                      echo    '   </td>
                                                             <td>'.$peU['TotalPagar'].'</td>
@@ -540,14 +546,35 @@
                                                     echo        '</select>
                                                             </td>
                                                             <td class="text-center">
-                                                                <button type="submit" class="btn btn-sm btn-primary button-UPPE" value="res-update-pedido-'.$upp.'">Actualizar</button>
+                                                                <button type="submit" class="btn btn-sm btn-primary btn-block" value="res-update-pedido-'.$upp.'">Actualizar</button>
+                                                                <a href="" class="btn btn-raised btn-xs btn-primary btn-block" target="_blank">Imprimir</a>
+                                                                
                                                                 <div id="res-update-pedido-'.$upp.'" style="width: 100%; margin:0px; padding:0px;"></div>
-                                                            </td>
-                                                        </tr>
+                                                            </td>  
                                                       </form>
+
+                                                      <td class="text-center">
+                                                      <form action="process/delPedido.php" method="post" >
+                                                      <input type="hidden" name="num-pedido" value='.$peU["NumPedido"].'> 
+                                                      <button type="submit" class="btn btn-danger">Eliminar pedido</button>
+                                                      <br>
+                                                      
+                                                  </form>
+                                                  </tr>
                                                     </div>
+                                                    </td>
                                                     ';
+                                               
                                                 $upp=$upp+1;
+
+
+
+
+
+
+
+
+
                                             }
                                           ?>
                                       </tbody>
