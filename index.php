@@ -11,7 +11,7 @@
     <div class="jumbotron" id="jumbotron-index">
       <h1><span class="tittles-pages-logo">El Porteño</span> </h1>
       <p>
-              Bienvenido a nuestra tienda en linea, aquí encontraras la bateria que tu auto necesita.
+             <h1>Bienvenido a nuestra tienda en linea, aquí encontraras la bateria que tu auto necesita.</h1> 
       </p>
     </div>
     <section id="new-prod-index">
